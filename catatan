@@ -1,0 +1,8 @@
+Proyek ini digunakan untuk mengerjakan fitur login, registrasi, ubah profil, ubah password, aktivasi email, 
+forgot password, dan penyedia data yang seharusnya sebagai rest API agar dihubungkan dengan frontend.
+
+Adapun beberapa kendala yang dialami sampai sekarang belum menemukan solusi adalah :
+1. rest api yang dibuat dengan file controller\PertanyaanAPI.php dan models\M_pertanyaan.php belum dapat dilakukan
+testing pada postman
+2. setelah mengikuti alur dari projek forum, halaman untuk menampilkan data pertanyaan beserta jawaban dan balasan masih notfound
+3. aktivasi email dan forgot password error pada smtp port 25
