@@ -6,9 +6,34 @@ class Pertanyaan extends RESTController{
     parent::__construct();
     $this->load->model('M_Pertanyaan');
   }
+
 // method index untuk menampilkan semua pertanyaan menggunakan method get
   public function index_get(){
     $response = $this->M_PertanyaanAPI->all_pertanyaan();
+
+    $pertanyaan = $response['pertanyaan']; // [ { id_pertanyaan: 1 }, { id_pertanyaan: 2 } ]
+    $pertanyaanIds = [];
+
+    foreach ($pertanyaan as $p) {
+      array_push($pertanyaanIds, $p['id_pertanyaan']);
+    }
+    
+    $jawaban = $this->JawabanModel->listByPertanyaanIds($pertanyaanIds) // [ { id_pertanyaan: 1, id_jawaban: 1 }, { id_pertanyaan: 2, id_jawaban: 2 } ]
+
+    foreach ($jawaban as $j) {
+      foreach ($pertanyaan as $index => $p) {
+        if ($j['id_pertanyaan'] == $p['id_pertanyaan']) {
+          if (array_key_exists('jawaban', $p)) {
+            array_push($pertanyaan[$index]['jawaban'], $j)
+          } else {
+            $pertanyaan[$index]['jawaban'] = [$j]
+          }
+
+          break;
+        }
+      }
+    }
+    
     $this->response($response);
   }
 // untuk menambah pertanyaan menaggunakan method post
