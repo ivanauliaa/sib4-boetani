@@ -32,4 +32,11 @@ class JawabanModel extends CI_Model
         WHERE a.id_pertanyaan = ?
         ORDER BY a.created, b.created', [$id_pertanyaan])->getResult();
     }
+
+    public function listByPertanyaanIds($pertanyaanIds)
+    {
+        return $this->query('SELECT a.* FROM jawaban a
+        WHERE a.id_pertanyaan IN ?
+        ORDER BY a.created', [$pertanyaanIds])->getResult();
+    }
 }
